@@ -1,79 +1,170 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
-# Getting Started
+# DogApp
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+**DogApp** is a React Native application that showcases a list of dog breeds and their images, with functionalities such as filtering, sharing via social media, and state management using Redux. It also integrates third-party APIs like Dog CEO's Dog API for fetching the data.
 
-## Step 1: Start the Metro Server
+## Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- Browse and display dog breeds with images.
+- Masonry-style image grid layout similar to Pinterest.
+- Search and filter functionality to find specific dog breeds.
+- Integration with external APIs like Dog CEO API.
+- Share dog images via social media using `react-native-share`.
+- Remote config to update app content without redeployment.
+- State management using Redux.
+- Unit tests implemented with Jest and React Native Testing Library.
+- User authentication via DummyJSON API.
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Screenshots
+
+<!-- Include screenshots of your app -->
+<img src="screenshots/screenshot1.png" width="250"/> 
+<img src="screenshots/screenshot2.png" width="250"/>
+
+## Prerequisites
+
+Ensure you have the following installed on your system:
+
+- [Node.js](https://nodejs.org/) (v14.x - v18.x recommended)
+- [React Native CLI](https://reactnative.dev/docs/environment-setup)
+- [CocoaPods](https://cocoapods.org/) (for iOS development)
+
+## Installation
+
+Follow the steps below to get the project up and running:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/codenamerhu/DogApp.git
+   cd DogApp
+   ```
+
+2. Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Install iOS dependencies (if you're developing for iOS):
+
+   ```bash
+   cd ios
+   pod install
+   cd ..
+   ```
+
+## Running the App
+
+### For iOS:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+npx react-native run-ios
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+### For Android:
 
 ```bash
-# using npm
-npm run android
-
-# OR using Yarn
-yarn android
+npx react-native run-android
 ```
 
-### For iOS
+Ensure that you have an emulator running or a physical device connected.
+
+## APIs Used
+
+- **Dog CEO API**: Fetches images and information about dog breeds.
+  - [API Documentation](https://dog.ceo/dog-api/documentation/)
+
+- **DummyJSON API**: Used for user authentication.
+  - [Login API Documentation](https://dummyjson.com/docs/users#users-login)
+  - Use the following credentials for login:
+    - **Username/Email**: `emilys`
+    - **Password**: `emilypass`
+
+## Usage
+
+The app has the following functionalities:
+
+- Browse and scroll through a list of dog breeds.
+- Filter and search for specific breeds.
+- User authentication is implemented via the DummyJSON API, allowing login using the provided credentials.
+- Share images directly to social media apps like WhatsApp via `react-native-share`.
+- Remote config allows changing content without redeploying the app.
+
+## Folder Structure
+
+```plaintext
+├── src
+│   ├── components        # Reusable UI components
+│   ├── containers        # Main container components
+|   ├── presenters        # UI Componenets for containerrs/screens
+│   ├── redux             # Redux slices and store setup
+│   ├── api               # API calls and configuration
+│   └── utils             # Utility functions
+|       |__ Constants
+├── ios                   # iOS-specific files
+├── android               # Android-specific files
+├── __tests__             # Unit tests for components and logic
+├── __mocks__             # Mocks for testing libraries and assets
+├── README.md             # Project documentation
+├── babel.config.js       # Babel configuration
+├── jest.config.js        # Jest configuration (if applicable)
+└── package.json          # Project metadata and dependencies
+```
+
+## State Management
+
+State is managed using **Redux**. The application leverages Redux Toolkit's slice functionality for managing the list of dog breeds and related states.
+
+### Key Redux Files:
+
+- **dogSlice.tsx**: Manages the state related to the dog breeds (fetching, storing, and filtering).
+- **store.ts**: Configures the Redux store.
+
+## Testing
+
+This project uses **Jest** and **React Native Testing Library** for unit testing. It also integrates **SonarQube** for test result processing.
+
+To run the test suite:
 
 ```bash
-# using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+npm test
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+### Unit Tests:
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+- Tests are located in the `__tests__` folder.
+- Mocks for `react-native-fast-image`, `react-native-share`, and other libraries are included in the `__mocks__` folder.
 
-## Step 3: Modifying your App
+## Tech Stack
 
-Now that you have successfully run the app, let's modify it.
+- **React Native**: For building the mobile application.
+- **Redux**: State management.
+- **Jest**: Testing framework.
+- **React Native Testing Library**: For component testing.
+- **react-native-share**: For sharing dog breed images.
+- **@react-native-seoul/masonry-list**: Used for a Pinterest-like grid layout.
+- **Dog CEO API**: For fetching dog images and breed data.
+- **DummyJSON API**: For user authentication.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Troubleshooting
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Common Issues:
 
-## Congratulations! :tada:
+1. **Metro Bundler not starting**:
+   - Ensure that you’ve cleared the cache:
+     ```bash
+     npm start -- --reset-cache
+     ```
 
-You've successfully run and modified your React Native App. :partying_face:
+2. **CocoaPods issues on iOS**:
+   - Run the following commands to resolve iOS-related dependency issues:
+     ```bash
+     cd ios
+     pod install
+     cd ..
+     ```
 
-### Now what?
+3. **Unable to share images**:
+   - Ensure `react-native-share` is correctly linked and that permissions are granted on iOS and Android.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
